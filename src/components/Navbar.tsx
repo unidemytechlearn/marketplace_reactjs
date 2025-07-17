@@ -50,14 +50,14 @@ const Navbar: React.FC<NavbarProps> = ({ onAuthClick }) => {
               <BookOpen className="w-6 h-6 text-white" />
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold text-gray-900">Scholastic Hub</span>
-              <div className="text-xs text-blue-600 font-medium">Market</div>
+              <span className="text-xl font-bold text-gray-900">Unidemy Global</span>
+              <div className="text-xs text-blue-600 font-medium">Marketplace</div>
             </div>
           </Link>
 
           {/* Search Bar - Desktop */}
           <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-            <form onSubmit={handleSearch} className="flex w-full">
+            <div className="flex w-full">
               <div className="relative">
                 <button
                   type="button"
@@ -86,18 +86,30 @@ const Navbar: React.FC<NavbarProps> = ({ onAuthClick }) => {
               <input
                 type="text"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  if (e.target.value.trim()) {
+                    navigate(`/?search=${encodeURIComponent(e.target.value)}`);
+                  } else {
+                    navigate('/');
+                  }
+                }}
                 placeholder="Search for products..."
                 className="flex-1 h-12 px-4 border-t border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               
               <button
-                type="submit"
+                type="button"
+                onClick={() => {
+                  if (searchTerm.trim()) {
+                    navigate(`/?search=${encodeURIComponent(searchTerm)}`);
+                  }
+                }}
                 className="h-12 px-6 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors flex items-center"
               >
                 <Search className="w-5 h-5" />
               </button>
-            </form>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -194,21 +206,33 @@ const Navbar: React.FC<NavbarProps> = ({ onAuthClick }) => {
 
         {/* Mobile Search */}
         <div className="md:hidden pb-4">
-          <form onSubmit={handleSearch} className="flex">
+          <div className="flex">
             <input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                if (e.target.value.trim()) {
+                  navigate(`/?search=${encodeURIComponent(e.target.value)}`);
+                } else {
+                  navigate('/');
+                }
+              }}
               placeholder="Search products..."
               className="flex-1 h-10 px-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <button
-              type="submit"
+              type="button"
+              onClick={() => {
+                if (searchTerm.trim()) {
+                  navigate(`/?search=${encodeURIComponent(searchTerm)}`);
+                }
+              }}
               className="h-10 px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition-colors"
             >
               <Search className="w-4 h-4" />
             </button>
-          </form>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

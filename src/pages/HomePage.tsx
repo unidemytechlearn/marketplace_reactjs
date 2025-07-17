@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Search, MapPin, Clock, Filter, Sliders, Settings } from 'lucide-react';
 import { useProducts } from '../context/ProductContext';
 import { useAuth } from '../context/AuthContext';
@@ -10,6 +11,7 @@ import LocationModal from '../components/LocationModal';
 const HomePage: React.FC = () => {
   const { products } = useProducts();
   const { user } = useAuth();
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
@@ -22,6 +24,14 @@ const HomePage: React.FC = () => {
     state?: string;
     pincode?: string;
   }>({});
+
+  // Get search term from URL params
+  React.useEffect(() => {
+    const searchFromUrl = searchParams.get('search');
+    if (searchFromUrl) {
+      setSearchTerm(searchFromUrl);
+    }
+  }, [searchParams]);
 
   const categories = ['All', 'Books', 'Electronics', 'Furniture', 'Services', 'Clothing', 'Sports'];
   const conditions = ['All', 'New', 'Like New', 'Good', 'Fair', 'Poor'];

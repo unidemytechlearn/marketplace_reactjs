@@ -14,13 +14,13 @@ const Footer: React.FC = () => {
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-lg font-bold">Scholastic Hub</span>
-                <div className="text-sm text-blue-400">Market</div>
+                <span className="text-lg font-bold">Unidemy Global</span>
+                <div className="text-sm text-blue-400">Marketplace</div>
               </div>
             </div>
             <p className="text-gray-400 text-sm">
-              Your trusted marketplace for educational materials and everyday essentials. 
-              Connecting students, educators, and communities.
+              Your trusted global marketplace for educational materials and everyday essentials. 
+              Connecting learners, educators, and communities worldwide.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 Scholastic Hub Market. All rights reserved.
+              © 2024 Unidemy Global Marketplace. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
