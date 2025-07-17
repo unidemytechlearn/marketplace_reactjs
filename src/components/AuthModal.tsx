@@ -114,7 +114,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">
-            {isLogin ? 'Welcome back' : 'Create account'}
+            {isLogin ? 'Welcome back' : 'Join Unidemy Global'}
           </h2>
           <button
             onClick={handleClose}

@@ -94,7 +94,7 @@ const LoginPage: React.FC = () => {
             {isLogin ? 'Welcome back' : 'Create your account'}
           </h2>
           <p className="mt-2 text-gray-600">
-            {isLogin ? 'Sign in to your account' : 'Join our marketplace community'}
+            {isLogin ? 'Sign in to your account' : 'Join Unidemy Global Marketplace'}
           </p>
         </div>
 

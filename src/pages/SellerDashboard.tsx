@@ -10,7 +10,8 @@ import {
   X,
   TrendingUp,
   Eye,
-  Clock
+  Clock,
+  Home
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useProducts } from '../context/ProductContext';
@@ -47,9 +48,18 @@ const SellerDashboard: React.FC = () => {
 
   const DashboardHome = () => (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
-        <p className="text-gray-600 mt-1">Here's what's happening with your listings</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
+          <p className="text-gray-600 mt-1">Here's what's happening with your listings</p>
+        </div>
+        <Link
+          to="/"
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+        >
+          <Home className="w-4 h-4" />
+          <span>Back to Marketplace</span>
+        </Link>
       </div>
 
       {/* Stats Cards */}
@@ -141,7 +151,7 @@ const SellerDashboard: React.FC = () => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">EduMarket</span>
+            <span className="text-xl font-bold text-gray-900">Unidemy Global</span>
           </Link>
           <button
             onClick={() => setIsSidebarOpen(false)}
