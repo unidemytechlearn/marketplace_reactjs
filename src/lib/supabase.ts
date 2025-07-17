@@ -28,6 +28,8 @@ export interface Category {
   id: string;
   name: string;
   description?: string;
+  icon?: string;
+  is_special?: boolean;
   created_at: string;
 }
 
@@ -43,6 +45,8 @@ export interface Product {
   city?: string;
   state?: string;
   pincode?: string;
+  is_donation?: boolean;
+  is_urgent?: boolean;
   image_urls: string[];
   status: 'active' | 'sold' | 'inactive';
   views: number;
@@ -53,6 +57,14 @@ export interface Product {
   category?: Category;
 }
 
+export interface Wishlist {
+  id: string;
+  user_id: string;
+  product_id: string;
+  created_at: string;
+  // Joined relations
+  product?: Product;
+}
 export interface Order {
   id: string;
   buyer_id: string;
@@ -408,12 +420,64 @@ export const getCategories = async () => {
   const { data, error } = await supabase
     .from('categories')
     .select('*')
+    .order('is_special', { ascending: true })
     .order('name');
 
   if (error) throw error;
   return data;
 };
 
+export const getProductsByCategory = async (categoryName?: string, limit = 20, offset = 0) => {
+  const { data, error } = await supabase.rpc('get_products_by_category', {
+    category_name: categoryName || null,
+    limit_count: limit,
+    offset_count: offset
+  });
+
+  if (error) throw error;
+  return data;
+};
+
+export const getSpecialProducts = async (type: 'donation' | 'urgent' | 'all' = 'all', limit = 10) => {
+  const { data, error } = await supabase.rpc('get_special_products', {
+    product_type: type,
+    limit_count: limit
+  });
+
+  if (error) throw error;
+  return data;
+};
+
+// Wishlist Functions
+export const toggleWishlist = async (productId: string) => {
+  const { data, error } = await supabase.rpc('toggle_wishlist', {
+    product_uuid: productId
+  });
+
+  if (error) throw error;
+  return data; // Returns true if added, false if removed
+};
+
+export const getUserWishlist = async () => {
+  const { data, error } = await supabase.rpc('get_user_wishlist');
+
+  if (error) throw error;
+  return data;
+};
+
+export const isProductInWishlist = async (productId: string) => {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const { data, error } = await supabase
+    .from('wishlists')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('product_id', productId)
+    .single();
+
+  return !error && !!data;
+};
 // File Upload Functions
 export const uploadProductImage = async (file: File, userId: string) => {
   const fileExt = file.name.split('.').pop();
